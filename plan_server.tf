@@ -12,18 +12,22 @@ resource "kubernetes_manifest" "system_upgrade" {
     }
 
     spec = {
-      channel     = "https://update.k3s.io/v1-release/channels/${var.k3s_channel}"
-      concurrency = "1"
-      cordon      = true
-      drain = {
-        force            = true
-        deleteLocalData  = true
-        ignoreDaemonSets = true
-      }
+      channel            = "https://update.k3s.io/v1-release/channels/${var.k3s_channel}"
       serviceAccountName = "system-upgrade"
+
+      concurrency = var.client_concurrency
+      cordon      = true
+
+      drain = {
+        force            = var.force_drain
+        deleteLocalData  = var.delete_local_data
+        ignoreDaemonSets = var.ignore_daemonsets
+      }
+
       upgrade = {
         image = "rancher/k3s-upgrade"
       }
+
       nodeSelector = {
         matchExpressions = [
           {
