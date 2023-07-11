@@ -19,9 +19,13 @@ resource "kubernetes_manifest" "system_upgrade" {
       cordon      = true
 
       drain = {
-        force            = var.force_drain
-        deleteLocalData  = var.delete_local_data
-        ignoreDaemonSets = var.ignore_daemonsets
+        force              = var.force_drain
+        deleteLocalData    = var.delete_local_data
+        ignoreDaemonSets   = var.ignore_daemonsets
+        deleteEmptyDirData = var.delete_emptydir_data
+        disalbeEviction    = var.disable_eviction
+        force              = var.force
+        gracePeriod        = var.grace_period
       }
 
       upgrade = {
