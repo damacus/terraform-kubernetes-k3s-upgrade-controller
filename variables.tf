@@ -16,6 +16,30 @@ variable "delete_local_data" {
   default     = false
 }
 
+variable "delete_emptydir_data" {
+  type        = bool
+  description = "Delete emptydir data"
+  default     = false
+}
+
+variable "disable_eviction" {
+  type        = bool
+  description = "Disable eviction"
+  default     = true
+}
+
+variable "force" {
+  type        = bool
+  description = "Force"
+  default     = false
+}
+
+variable "grace_period" {
+  type        = number
+  description = "Grace period"
+  default     = 0
+}
+
 variable "ignore_daemonsets" {
   type        = bool
   description = "Ignore daemonsets"
