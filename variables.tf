@@ -4,6 +4,12 @@ variable "client_concurrency" {
   default     = 1
 }
 
+variable "server_concurrency" {
+  type        = number
+  description = "Number of servers to upgrade at a time"
+  default     = 1
+}
+
 variable "force_drain" {
   type        = bool
   description = "Force drain nodes"
@@ -24,13 +30,13 @@ variable "ignore_daemonsets" {
 
 variable "upgrade_controller_version" {
   type        = string
-  default     = "v0.10.0"
+  default     = "v0.11.0"
   description = "The version of the system-upgrade-controller to use."
 }
 
 variable "kubectl_version" {
   type        = string
-  default     = "1.21.9"
+  default     = "1.27.6"
   description = "The version of kubectl to use."
 }
 
