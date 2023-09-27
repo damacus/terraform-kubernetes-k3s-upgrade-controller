@@ -30,17 +30,25 @@ resource "kubernetes_manifest" "client_plan" {
 
       nodeSelector = {
         matchExpressions = [
-          {
-            key      = "node-role.kubernetes.io/control-plane"
-            operator = "DoesNotExist"
-            values   = ["true"]
-          }
+            {
+                key 	= "k3s-upgrade"
+                operator = "Exists"
+            },
+            {
+                key 	= "k3s-upgrade"
+                operator = "NotIn"
+                values 	= ["disabled", "false"]
+            },
+            {
+                key = "node-role.kubernetes.io/control-plane"
+                operator = "DoesNotExist"
+            }
         ]
       }
 
       prepare = {
-        args  = ["prepare", kubernetes_manifest.system_upgrade.manifest.metadata.name]
         image = "rancher/k3s-upgrade"
+        args  = ["prepare", kubernetes_manifest.system_upgrade.manifest.metadata.name]
       }
     }
   }

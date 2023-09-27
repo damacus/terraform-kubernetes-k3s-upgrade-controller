@@ -15,7 +15,7 @@ resource "kubernetes_manifest" "system_upgrade" {
       channel            = "https://update.k3s.io/v1-release/channels/${var.k3s_channel}"
       serviceAccountName = "system-upgrade"
 
-      concurrency = var.client_concurrency
+      concurrency = var.server_concurrency
       cordon      = true
 
       drain = {
@@ -30,11 +30,19 @@ resource "kubernetes_manifest" "system_upgrade" {
 
       nodeSelector = {
         matchExpressions = [
-          {
-            key      = "node-role.kubernetes.io/master"
-            operator = "In"
-            values   = ["true"]
-          }
+            {
+                key 	= "k3s-upgrade"
+                operator = "Exists"
+            },
+            {
+                key 	= "node-role.kubernetes.io/control-plane"
+                operator = "Exists"
+            },
+            {
+                key 	= "k3s-upgrade"
+                operator = "NotIn"
+                values 	= ["disabled", "false"]
+            }
         ]
       }
     }
