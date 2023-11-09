@@ -30,13 +30,13 @@ variable "ignore_daemonsets" {
 
 variable "upgrade_controller_version" {
   type        = string
-  default     = "v0.11.0"
+  default     = "v0.13.1"
   description = "The version of the system-upgrade-controller to use."
 }
 
 variable "kubectl_version" {
   type        = string
-  default     = "1.27.6"
+  default     = "1.27.7"
   description = "The version of kubectl to use."
 }
 
